@@ -11,8 +11,8 @@ package list
 import (
 	"sync"
 
+	"github.com/glebziz/containers/internal/iter"
 	"github.com/glebziz/containers/internal/node"
-	"github.com/glebziz/containers/iter"
 )
 
 // List represents a doubly linked list.

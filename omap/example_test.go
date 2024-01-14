@@ -6,7 +6,7 @@ import (
 	"github.com/glebziz/containers/omap"
 )
 
-func ExampleOMap_Iter() {
+func ExampleNew() {
 	l := omap.New[int, string]()
 
 	l.Store(1, "Hello")
