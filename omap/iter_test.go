@@ -11,13 +11,17 @@ func TestIter(t *testing.T) {
 		N = 10
 	)
 
-	l := NewPresized[int, int](N)
+	m := NewPresized[int, int](N)
+
+	it := m.Iter()
+	require.False(t, it.Next())
+
 	for i := 0; i < N; i++ {
-		l.Store(i, i)
+		m.Store(i, i)
 	}
 
 	i := 0
-	it := l.Iter()
+	it = m.Iter()
 
 	for it.Next() {
 		require.Equal(t, i, it.Val())

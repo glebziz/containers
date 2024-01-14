@@ -39,7 +39,7 @@ func (i *Iter[T]) Next() bool {
 		next = i.c.Prev()
 	}
 
-	if next == i.stop {
+	if next == nil || next == i.stop {
 		return false
 	}
 

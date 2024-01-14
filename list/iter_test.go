@@ -12,12 +12,16 @@ func TestIter(t *testing.T) {
 	)
 
 	l := NewPresized[int](N)
+
+	it := l.Iter()
+	require.False(t, it.Next())
+
 	for i := 0; i < N; i++ {
 		l.PushBack(i)
 	}
 
 	i := 0
-	it := l.Iter()
+	it = l.Iter()
 
 	for it.Next() {
 		require.Equal(t, i, it.Val())
@@ -33,12 +37,16 @@ func TestRIter(t *testing.T) {
 	)
 
 	l := NewPresized[int](N)
+
+	it := l.RIter()
+	require.False(t, it.Next())
+
 	for i := 0; i < N; i++ {
 		l.PushBack(i)
 	}
 
 	i := N
-	it := l.RIter()
+	it = l.RIter()
 
 	for it.Next() {
 		require.Equal(t, i-1, it.Val())
