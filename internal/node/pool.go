@@ -8,6 +8,7 @@ const (
 type Pool[T any] struct {
 	free *Node[T]
 	pool []Node[T]
+	cap  int
 }
 
 // NewPool returns an initialised pool with the default capacity (16).
@@ -29,7 +30,7 @@ func (p *Pool[T]) Cap() int {
 		return 0
 	}
 
-	return cap(p.pool)
+	return p.cap + cap(p.pool)
 }
 
 // Pop returns the first free node or the new node created node.
@@ -68,5 +69,12 @@ func (p *Pool[T]) Push(n *Node[T]) {
 func (p *Pool[T]) init(size int) {
 	if p.pool == nil {
 		p.pool = make([]Node[T], 0, size)
+	}
+
+	c := cap(p.pool)
+
+	if c == len(p.pool) {
+		p.cap += c
+		p.pool = make([]Node[T], 0, p.cap)
 	}
 }

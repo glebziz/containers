@@ -103,3 +103,20 @@ func TestPool_Push(t *testing.T) {
 
 	require.Equal(t, n, p.free)
 }
+
+func TestPool_Cap_WithDoubleAlloc(t *testing.T) {
+	t.Parallel()
+
+	const (
+		size = 2
+	)
+
+	p := NewPoolPresized[int](2)
+
+	for i := 0; i < size*16; i++ {
+		p.Pop()
+	}
+
+	require.Equal(t, size*16, p.Cap())
+	require.Equal(t, size*8, cap(p.pool))
+}
