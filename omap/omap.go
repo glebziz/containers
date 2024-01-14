@@ -11,8 +11,8 @@ package omap
 import (
 	"sync"
 
+	"github.com/glebziz/containers/internal/iter"
 	"github.com/glebziz/containers/internal/node"
-	"github.com/glebziz/containers/iter"
 )
 
 // OMap represents an ordered map.

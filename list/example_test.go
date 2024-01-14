@@ -6,19 +6,7 @@ import (
 	"github.com/glebziz/containers/list"
 )
 
-func ExampleNewPresized() {
-	l := list.NewPresized[int](10)
-	l.PushBack(1)
-	fmt.Println(l.Back())
-	l.PopFront()
-	fmt.Println(l.Front())
-
-	// Output:
-	// 1
-	// 0
-}
-
-func ExampleList_Iter() {
+func ExampleNew() {
 	l := list.New[string]()
 
 	l.PushBack("World")
