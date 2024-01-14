@@ -15,7 +15,7 @@ go get -u github.com/glebziz/containers
 ## Structures
 
 All structures in the library use a pool of nodes.
-For more information see [node](https://github.com/glebziz/containers/internal/node) package.
+For more information see [node](https://github.com/glebziz/containers/tree/master/internal/node) package.
 
 ### List
 
@@ -91,20 +91,24 @@ func main() {
 
 #### Benchmarks
 
-Benchmarks for ordered map.
+Benchmarks for ordered map versus a standard `sync.Map`.
 
 ```
-Store/ordered_map                       100000000           213.5 ns/op         87 B/op         0 allocs/op
-Store/presized_ordered_map              100000000           165.3 ns/op         51 B/op         0 allocs/op
+Store/sync_map                          100000000           537.1 ns/op        136 B/op         5 allocs/op
+Store/ordered_map                       100000000           192.9 ns/op         87 B/op         0 allocs/op
+Store/presized_ordered_map              100000000           157.8 ns/op         51 B/op         0 allocs/op
 
-Delete/ordered_map                      100000000           181.4 ns/op          0 B/op         0 allocs/op
-Delete/presized_ordered_map             100000000           188.0 ns/op          0 B/op         0 allocs/op
+Delete/sync_map                         100000000           189.5 ns/op          0 B/op         0 allocs/op
+Delete/ordered_map                      100000000           161.6 ns/op          0 B/op         0 allocs/op
+Delete/presized_ordered_map             100000000           160.8 ns/op          0 B/op         0 allocs/op
 
-Load/ordered_map                        100000000           98.08 ns/op          0 B/op         0 allocs/op
-Load/presized_ordered_map               100000000           88.05 ns/op          0 B/op         0 allocs/op
+Load/sync_map                           100000000           189.5 ns/op          0 B/op         0 allocs/op
+Load/ordered_map                        100000000           84.97 ns/op          0 B/op         0 allocs/op
+Load/presized_ordered_map               100000000           83.80 ns/op          0 B/op         0 allocs/op
 
-Iter/ordered_map                        100000000           1.231 ns/op          0 B/op         0 allocs/op
-Iter/presized_ordered_map               100000000           1.273 ns/op          0 B/op         0 allocs/op
+Iter/sync_map                           100000000           154.4 ns/op          0 B/op         0 allocs/op
+Iter/ordered_map                        100000000           1.204 ns/op          0 B/op         0 allocs/op
+Iter/presized_ordered_map               100000000           1.199 ns/op          0 B/op         0 allocs/op
 ```
 
 ## License
