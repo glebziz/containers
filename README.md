@@ -1,5 +1,9 @@
 # Containers
 
+[![Test](https://github.com/glebziz/containers/actions/workflows/test.yml/badge.svg)](https://github.com/glebziz/containers/actions/workflows/test.yml)
+[![Coverage](https://codecov.io/gh/glebziz/containers/branch/master/graph/badge.svg?token=4FRAIEVYAL)](https://codecov.io/gh/glebziz/containers/)
+[![Go Reference](https://pkg.go.dev/badge/github.com/glebziz/fs_db.svg)](https://pkg.go.dev/github.com/glebziz/fs_db)
+
 Containers are a library of data structures that use a pool of nodes to minimize memory allocation during operation.
 
 ## Install

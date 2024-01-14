@@ -93,15 +93,39 @@ func TestPool_Pop(t *testing.T) {
 }
 
 func TestPool_Push(t *testing.T) {
-	t.Parallel()
+	for _, tc := range []struct {
+		name string
+		p    *Pool[int]
+		n    *Node[int]
+		expP *Pool[int]
+	}{
+		{
+			name: "nil pool",
+			n:    &Node[int]{},
+		},
+		{
+			name: "existing pool",
+			p:    NewPool[int](),
+			n: &Node[int]{
+				val: 1,
+			},
+			expP: &Pool[int]{
+				pool: []Node[int]{},
+				free: &Node[int]{
+					val: 1,
+				},
+			},
+		},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 
-	p := NewPool[int]()
+			tc.p.Push(tc.n)
 
-	n := &Node[int]{}
-
-	p.Push(n)
-
-	require.Equal(t, n, p.free)
+			require.Equal(t, tc.expP, tc.p)
+		})
+	}
 }
 
 func TestPool_Cap_WithDoubleAlloc(t *testing.T) {
