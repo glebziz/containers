@@ -56,6 +56,30 @@ func TestOMap_Store(t *testing.T) {
 				require.Equal(t, m.root.Prev().Prev(), m.root.Next())
 			},
 		},
+		{
+			name: "with existing key",
+			k:    20,
+			v:    10,
+			m: func() *OMap[int, int] {
+				m := NewPresized[int, int](1)
+				next := node.Node[int]{}
+
+				next.SetVal(1)
+				next.SetNext(&m.root)
+				next.SetPrev(&m.root)
+				m.root.SetNext(&next)
+				m.root.SetPrev(&next)
+				m.data[20] = &next
+
+				return m
+			},
+			checkMap: func(t *testing.T, m *OMap[int, int]) {
+				require.Equal(t, 1, m.Len())
+				require.Equal(t, 10, m.root.Next().Val())
+				require.Equal(t, m.root.Next(), m.data[20])
+				require.Equal(t, m.root.Next(), m.root.Prev())
+			},
+		},
 	} {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {

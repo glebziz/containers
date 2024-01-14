@@ -59,21 +59,26 @@ func (m *OMap[K, V]) Store(key K, val V) {
 	m.m.Lock()
 	defer m.m.Unlock()
 
-	if m.pool == nil {
-		m.pool = node.NewPool[V]()
-		m.data = make(map[K]*node.Node[V], m.pool.Cap())
+	n, ok := m.data[key]
+	if ok {
+		n.Remove()
+	} else {
+		if m.pool == nil {
+			m.pool = node.NewPool[V]()
+			m.data = make(map[K]*node.Node[V], m.pool.Cap())
+		}
+
+		if m.root.Next() == nil {
+			m.root.SetNext(&m.root)
+			m.root.SetPrev(&m.root)
+		}
+
+		n = m.pool.Pop()
+		m.data[key] = n
 	}
 
-	if m.root.Next() == nil {
-		m.root.SetNext(&m.root)
-		m.root.SetPrev(&m.root)
-	}
-
-	n := m.pool.Pop()
 	n.SetVal(val)
 	m.root.Prev().Insert(n)
-
-	m.data[key] = n
 }
 
 // Load returns the value by key from the map.
