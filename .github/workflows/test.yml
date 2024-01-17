@@ -20,7 +20,7 @@ jobs:
 
       - name: Run tests
         run: |
-          go test ./... -coverprofile=coverage.txt
+          go test ./... -race -coverprofile=coverage.txt
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v3
